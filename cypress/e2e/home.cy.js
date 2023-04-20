@@ -15,10 +15,6 @@ describe("E2E - home page - Amazon", () => {
     cy.url().should("eq", url.homeUrl);
   });
 
-  // it('Should type phrase and verify title', () => {
-    
-  // });
-
   it("should search for a valid product", () => {
     const searchTerm = "iphone"; // define the search term
     cy.get("#twotabsearchtextbox").type(searchTerm); // find the search input and type in the search term
