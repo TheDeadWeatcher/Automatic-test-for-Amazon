@@ -1,0 +1,14 @@
+{
+  "name": "e2e---amazon",
+  "version": "1.0.0",
+  "description": "Test automation for e-commerce shop amazon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bartosz Jasyk",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^12.10.0"
+  }
+}
