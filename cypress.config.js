@@ -2,9 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    setupNodeEvents(on, config) {
-      
-    },
+    setupNodeEvents(on, config) {},
 
     baseUrl: "https://www.amazon.com/",
     includeShadowDom: true,
@@ -12,5 +10,9 @@ module.exports = defineConfig({
     viewportWidth: 1920,
     video: false,
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx,feature}",
+    retries: {
+      runMode: 0,
+      openMode:1
+    },
   },
 });
