@@ -43,47 +43,19 @@ describe('E2E - home page - Amazon', () => {
     cy.get('.s-result-list').should('have.length.gte', 1);
   });
 
-  // this it will not working, amazon search engine showing defualt result when search phrase is wrong or without seens.
+  // this it will not working, amazon search engine showing defualt result when search phrase is invalid or without seens.
 
-  // it("should show no results for an invalid term", () => {
-  //   const searchTerm = "audhsuadh";
-  //   cy.get("#twotabsearchtextbox").type(searchTerm);
-  //   cy.get(".nav-search-submit .nav-input").click();
-  //   cy.url().should("include", `k=${searchTerm}`);
-  //   cy.get("#noResultsTitle").should("be.visible");
-  // });
-
-  it('should exist change language button also verify url', () => {
-    cy.get('#icp-nav-flyout').should('exist');
+  it('should be visible "change language" button also verify url', () => {
+    cy.get('#icp-nav-flyout').should('be.visible');
     cy.get('#icp-nav-flyout').click();
     cy.url().should('contain', 'topnav_lang_ais');
   });
 
-  it('should exist account&list button also verify url', () => {
+  it('check all links on account&list', () => {
     cy.get('[data-nav-ref="nav_ya_signin"]').should('exist');
     cy.get('[data-nav-ref="nav_ya_signin"]').click();
     cy.url().should('contain', 'Fauth%2F2.0&');
-  });
-
-  // to nie działa zrób jak na lego.com
-
-  it.only('should have all account&list links and verify correct url', () => {
-    const links = [];
-    cy.get('#nav-link-accountList').trigger('mouseover');
-    cy.contains('Create a List')
-      .each(($link) => {
-        const text = $link.text().trim();
-        const url = $link.attr('href');
-        links.push({ text, url });
-      })
-      .then(() => {
-        expect(links).to.deep.equal([
-          { text: 'Create a List', url: '/hz/wishlist/intro' },
-        ]);
-      });
-  });
-
-  it('check all links on account&list', () => {
+    cy.go('back');
     cy.get('#nav-link-accountList').trigger('mouseover');
     cy.get('#nav-al-container a').each((page) => {
       cy.request(page.prop('href')).should((response) => {
@@ -91,4 +63,60 @@ describe('E2E - home page - Amazon', () => {
       });
     });
   });
+
+  it('should be visible "Returns&Orders, Cart" button also verify url', () => {
+    cy.get('#nav-orders').should('be.visible');
+    cy.get('#nav-orders').click();
+    cy.url().should('contain', 'ap/signin?');
+    cy.go('back');
+    cy.get('#nav-cart-count').should('be.visible');
+    cy.get('#nav-cart-count').click();
+    cy.url().should('contain', 'nav_cart');
+  });
+
+  it('should be visible all links from nav "x shop" and "great deals" also verify url', () => {
+    cy.get('#nav-xshop a').each((page) => {
+      cy.request(page.prop('href')).should((response) => {
+        expect(response.status).to.eq(200);
+      });
+    });
+    cy.get('#nav-swmslot').should('be.visible');
+    cy.get('#nav-swmslot').click();
+    cy.url().should('contain', 'deals');
+  });
+
+  it('should be visible all links from main nav also verify url', () => {
+    cy.get('#nav-hamburger-menu').click();
+    cy.get('.hmenu-item').contains('Amazon Music').click();
+    cy.get('[data-menu-id="2"] a').each((page) => {
+      cy.request(page.prop('href')).should((response) => {
+        expect(response.status).to.eq(200);
+      });
+    });
+    cy.contains('main menu').click();
+    cy.get('.hmenu-item').contains('Kindle E-readers & Books').click();
+    cy.get('[data-menu-id="2"] a').each((page) => {
+      cy.request(page.prop('href')).should((response) => {
+        expect(response.status).to.eq(200);
+      });
+    });
+    cy.contains('main menu').scrollIntoView().click({ force: true });
+  });
+
+  // it.only('should navigate to each category on the main nav', () => {
+  //   cy.get('#nav-hamburger-menu').click();
+  //   cy.get('.hmenu-item').contains('Amazon Music').click();
+  //   cy.wait(1000);
+  //   cy.get('[data-menu-id="2"] a').should('be.visible');
+  //   cy.wait(1000);
+  //   const mainNavLinks = cy.get('[data-menu-id="2"] a');
+
+  //   mainNavLinks.each((page) => {
+  //     const linkText = page.text();
+  //     page.click({ force: Boolean });
+  //     cy.title().should('contain', linkText);
+  //     cy.get('.hmenu-back-button').click();
+  //     cy.get('#nav-hamburger-menu').click();
+  //   });
+  // });
 });
