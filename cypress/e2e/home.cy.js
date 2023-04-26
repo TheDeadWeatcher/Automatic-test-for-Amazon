@@ -43,7 +43,7 @@ describe('E2E - home page - Amazon', () => {
     cy.get('.s-result-list').should('have.length.gte', 1);
   });
 
-  // this it will not working, amazon search engine showing defualt result when search phrase is invalid or without seens.
+  // "search invalid porduct" -  amazon search engine showing defualt result when search phrase is invalid or without seens.
 
   it('should be visible "change language" button also verify url', () => {
     cy.get('#icp-nav-flyout').should('be.visible');
@@ -85,7 +85,7 @@ describe('E2E - home page - Amazon', () => {
     cy.url().should('contain', 'deals');
   });
 
-  it('should be visible all links from main nav also verify url', () => {
+  it.only('should be visible all links from main nav also verify url', () => {
     cy.get('#nav-hamburger-menu').click();
     cy.get('.hmenu-item').contains('Amazon Music').click();
     cy.get('[data-menu-id="2"] a').each((page) => {
@@ -100,23 +100,13 @@ describe('E2E - home page - Amazon', () => {
         expect(response.status).to.eq(200);
       });
     });
-    cy.contains('main menu').scrollIntoView().click({ force: true });
+    cy.visit('/');
+    cy.get('#nav-hamburger-menu').click();
+    cy.get('.hmenu-item').contains('Amazon Appstore').click();
+    cy.get('[data-menu-id="2"] a').each((page) => {
+      cy.request(page.prop('href')).should((response) => {
+        expect(response.status).to.eq(200);
+      });
+    });
   });
-
-  // it.only('should navigate to each category on the main nav', () => {
-  //   cy.get('#nav-hamburger-menu').click();
-  //   cy.get('.hmenu-item').contains('Amazon Music').click();
-  //   cy.wait(1000);
-  //   cy.get('[data-menu-id="2"] a').should('be.visible');
-  //   cy.wait(1000);
-  //   const mainNavLinks = cy.get('[data-menu-id="2"] a');
-
-  //   mainNavLinks.each((page) => {
-  //     const linkText = page.text();
-  //     page.click({ force: Boolean });
-  //     cy.title().should('contain', linkText);
-  //     cy.get('.hmenu-back-button').click();
-  //     cy.get('#nav-hamburger-menu').click();
-  //   });
-  // });
 });
