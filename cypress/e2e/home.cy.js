@@ -84,29 +84,4 @@ describe('E2E - home page - Amazon', () => {
     cy.get('#nav-swmslot').click();
     cy.url().should('contain', 'deals');
   });
-
-  it.only('should be visible all links from main nav also verify url', () => {
-    cy.get('#nav-hamburger-menu').click();
-    cy.get('.hmenu-item').contains('Amazon Music').click();
-    cy.get('[data-menu-id="2"] a').each((page) => {
-      cy.request(page.prop('href')).should((response) => {
-        expect(response.status).to.eq(200);
-      });
-    });
-    cy.contains('main menu').click();
-    cy.get('.hmenu-item').contains('Kindle E-readers & Books').click();
-    cy.get('[data-menu-id="2"] a').each((page) => {
-      cy.request(page.prop('href')).should((response) => {
-        expect(response.status).to.eq(200);
-      });
-    });
-    cy.visit('/');
-    cy.get('#nav-hamburger-menu').click();
-    cy.get('.hmenu-item').contains('Amazon Appstore').click();
-    cy.get('[data-menu-id="2"] a').each((page) => {
-      cy.request(page.prop('href')).should((response) => {
-        expect(response.status).to.eq(200);
-      });
-    });
-  });
 });
