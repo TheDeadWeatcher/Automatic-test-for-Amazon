@@ -12,7 +12,7 @@ module.exports = defineConfig({
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx,feature}',
     retries: {
       runMode: 0,
-      openMode: 4,
+      openMode: 0,
     },
   },
 });

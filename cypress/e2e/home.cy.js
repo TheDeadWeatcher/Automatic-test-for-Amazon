@@ -84,4 +84,19 @@ describe('E2E - home page - Amazon', () => {
     cy.get('#nav-swmslot').click();
     cy.url().should('contain', 'deals');
   });
+
+  it.only('should navigate to each link on the footer', () => {
+    cy.get('#navFooter a[href]').each(($el) => {
+      const linkHref = $el.attr('href');
+
+      if (linkHref === 'https://shop.ring.com/pages/neighbors-app') {
+        cy.log(`Skipping link: ${linkHref}`);
+        return; // skip this link, this page doesn`t exist - report to amazon.com
+      }
+
+      cy.request(linkHref).then((response) => {
+        expect(response.status).to.eq(200);
+      });
+    });
+  });
 });
