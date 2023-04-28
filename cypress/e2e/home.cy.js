@@ -91,7 +91,7 @@ describe('E2E - home page - Amazon', () => {
 
       if (linkHref === 'https://shop.ring.com/pages/neighbors-app') {
         cy.log(`Skipping link: ${linkHref}`);
-        return; // skip this link, this page doesn`t exist - report to amazon.com
+        return; // skip this link, this page doesn`t exist in Poland - report to amazon.com
       }
 
       cy.request(linkHref).then((response) => {
