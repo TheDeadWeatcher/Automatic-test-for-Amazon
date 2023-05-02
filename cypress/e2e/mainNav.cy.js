@@ -148,6 +148,22 @@ describe('E2E - home page - Amazon', () => {
     });
   });
 
+  // it.only('s', () => {
+  //   cy.get('#nav-hamburger-menu').click();
+  //   cy.get('#hmenu-content a[href]').each(($el) => {
+  //     const linkHref = $el.attr('href');
+
+  //     if (linkHref === 'https://www.amazon.com/') {
+  //       cy.log(`Skipping link: ${linkHref}`);
+  //       return; // skip this link, this page doesn`t exist in Poland - report to amazon.com
+  //     }
+
+  //     cy.request(linkHref).then((response) => {
+  //       expect(response.status).to.eq(200);
+  //     });
+  //   });
+  // });
+
   // it.only('should navigate to each link on the main navigation bar', () => {
   //   cy.get('#nav-hamburger-menu').click();
   //   // Get all links in the main navigation bar
@@ -160,8 +176,8 @@ describe('E2E - home page - Amazon', () => {
 
   // it.only('should navigate to each link on the main navigation bar', () => {
   //   cy.get('#nav-hamburger-menu').click();
-  //   cy.get('a.hmenu-item').should('be.visible');
-  //   cy.get('a.hmenu-item').each(($el, index, $list) => {
+  //   cy.get('#hmenu-content a[href]').should('be.visible');
+  //   cy.get('#hmenu-content a[href]').each(($el, index, $list) => {
   //     const linkText = $el.text().trim();
   //     const linkHref = $el.attr('href');
 

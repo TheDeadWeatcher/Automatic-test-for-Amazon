@@ -85,7 +85,19 @@ describe('E2E - home page - Amazon', () => {
     cy.url().should('contain', 'deals');
   });
 
-  it.only('should navigate to each link on the footer', () => {
+  it.only('Check all links in category "gaming accesories"', () => {
+    cy.get('#desktop-grid-1').should('be.visible');
+    cy.get('#desktop-grid-1 a').as('linkList');
+    cy.get('@linkList').each(($link) => {
+      cy.wrap($link).should('have.attr', 'href');
+      const linkTitle = $link.text().trim().toLocaleLowerCase(); // get the title of the current link
+      cy.wrap($link).click();
+      cy.title().should('contain', linkTitle); // verify the title of the current link
+      cy.go('back');
+    });
+  });
+
+  it('should navigate to each link on the footer', () => {
     cy.get('#navFooter a[href]').each(($el) => {
       const linkHref = $el.attr('href');
 
